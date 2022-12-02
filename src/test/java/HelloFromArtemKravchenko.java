@@ -5,7 +5,7 @@ public class HelloFromArtemKravchenko {
 
     @Test
     public void testHelloWorld(){
-        System.out.println("Hello from Artem Kravchenko");;
+        System.out.println("Hello from Artem Kravchenko");
     }
 
 }
