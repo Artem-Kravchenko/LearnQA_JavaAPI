@@ -14,8 +14,7 @@ public class ParsingJSON {
         String secondMessage = response.getString("messages[1]");
         System.out.println(secondMessage); // Вывод элемента массива с нужным сообщением
 
-        System.out.println(secondMessage.replace("message:", "").replace("[", "")
-                .replace("]", "")); //Вывод только нужного сообщения
+        System.out.println(secondMessage.replace("[message:", "").replace("]", "")); //Вывод только нужного сообщения
     }
 
 }
