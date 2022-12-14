@@ -12,6 +12,8 @@ public class Password {
     @Test
     public void testRestAssured() throws IOException {
         Map<String, String> credentials = new HashMap<>(); // Словарь для хранения комбинаций логин/пароль
+        credentials.put("login", "super_admin");
+
         List<String> passwords = new ArrayList<>(); // Коллекция для хранения списка паролей
 
         File passwordsList = new File("D:\\_Devel\\LearnQA_JavaAPI\\List_of_passwords.txt"); //Открытие файла со списком паролей
@@ -25,8 +27,6 @@ public class Password {
         }
 
         for (String password : passwords) { //Перебираем в цикле все возможные комбинации паролей
-            credentials.clear();
-            credentials.put("login", "super_admin");
             credentials.put("password", password);
 
             Response response = RestAssured
