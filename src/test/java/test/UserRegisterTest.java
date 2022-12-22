@@ -83,10 +83,11 @@ public class UserRegisterTest extends BaseTestCase {
         Assertions.assertResponseTextEquals(responseCreateUserWithoutNecessaryField, "The value of '" + field + "' field is too short");
     }
 
-    @Test // Создание пользователя с очень коротким именем в один символ (Поле username)
-    public void testCreateUserWithNameInOneSymbol() {
+    @ParameterizedTest // Создание пользователя с очень коротким именем в один символ (Поля username и firstName)
+    @ValueSource(strings = {"username", "firstName"})
+    public void testCreateUserWithNameInOneSymbol(String field) {
         Map<String, String> userData = new HashMap<>();
-        userData.put("username", "A");
+        userData.put(field, "A");
         userData = DataGenerator.getRegistrationData(userData);
 
         Response responseCreateUserWithNameInOneSymbol = apiCoreRequests
@@ -95,7 +96,7 @@ public class UserRegisterTest extends BaseTestCase {
                         userData);
 
         Assertions.assertResponseCodeEquals(responseCreateUserWithNameInOneSymbol, 400);
-        Assertions.assertResponseTextEquals(responseCreateUserWithNameInOneSymbol, "The value of 'username' field is too short");
+        Assertions.assertResponseTextEquals(responseCreateUserWithNameInOneSymbol, "The value of '" + field + "' field is too short");
     }
 
     @Test // Создание пользователя с очень длинным именем - длиннее 250 символов (Поле username)
