@@ -24,15 +24,15 @@ public class UserAgent {
         Map<String, String> headers = new HashMap<>();
         headers.put("User-Agent", userAgent);
 
-        JsonPath respose = RestAssured
+        JsonPath response = RestAssured
                 .given()
                 .headers(headers)
                 .get("https://playground.learnqa.ru/ajax/api/user_agent_check")
                 .jsonPath(); // Делаем запрос на API
 
-        String platform = respose.getString("platform"); // Считываем фактическое значение платформы
-        String browser = respose.getString("browser"); // Считываем фактическое значение браузера
-        String device = respose.getString("device"); // Считываем фактическое значение устройства
+        String platform = response.getString("platform"); // Считываем фактическое значение платформы
+        String browser = response.getString("browser"); // Считываем фактическое значение браузера
+        String device = response.getString("device"); // Считываем фактическое значение устройства
 
        //Идёт сравнение фактического значения с ожидаемым
         switch (userAgent) {
