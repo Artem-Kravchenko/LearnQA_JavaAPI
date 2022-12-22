@@ -55,5 +55,13 @@ public class ApiCoreRequests {
                 .andReturn();
     }
 
+    @Step("Make a GET-request without token and cookie")
+    public Response makeGetRequestWithoutTokenAndCookie(String url) {
+        return  given()
+                .filter(new AllureRestAssured())
+                .get(url)
+                .andReturn();
+    }
+
 
 }
