@@ -99,10 +99,11 @@ public class UserRegisterTest extends BaseTestCase {
         Assertions.assertResponseTextEquals(responseCreateUserWithNameInOneSymbol, "The value of '" + field + "' field is too short");
     }
 
-    @Test // Создание пользователя с очень длинным именем - длиннее 250 символов (Поле username)
-    public void testCreateUserWithLongName() {
+    @ParameterizedTest // Создание пользователя с очень длинным именем - длиннее 250 символов (Поля username и firstName)
+    @ValueSource(strings = {"username", "firstName"})
+    public void testCreateUserWithLongName(String field) {
         Map<String, String> userData = new HashMap<>();
-        userData.put("username", "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901");
+        userData.put(field, "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901");
         userData = DataGenerator.getRegistrationData(userData);
 
         Response responseCreateUserWithLongName = apiCoreRequests
@@ -111,7 +112,7 @@ public class UserRegisterTest extends BaseTestCase {
                         userData);
 
         Assertions.assertResponseCodeEquals(responseCreateUserWithLongName, 400);
-        Assertions.assertResponseTextEquals(responseCreateUserWithLongName, "The value of 'username' field is too long");
+        Assertions.assertResponseTextEquals(responseCreateUserWithLongName, "The value of '" + field + "' field is too long");
     }
 
 
