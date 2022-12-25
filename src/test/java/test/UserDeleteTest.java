@@ -1,21 +1,30 @@
 package test;
 
+import io.qameta.allure.*;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("CRUD operation on users")
+@Feature("Delete operation")
 public class UserDeleteTest extends BaseTestCase {
 
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
+    @Story("Удаление защищенных пользователей")
     @Test // Попытка удалить пользователя по ID 2 (Защищённого от удаления)
+    @Description("Попытка удалить пользователя по ID 2 (Защищённого от удаления)")
+    @DisplayName("Attempt to delete user with ID = 2")
+    @Severity(value = SeverityLevel.NORMAL)
+    @TmsLink(value = "COLLECTION-123")
     public void deleteUserWithIdNumberTwoTest() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -88,7 +97,7 @@ public class UserDeleteTest extends BaseTestCase {
 
     @Test
     public void deleteUserIfWeAreAuthorisedByOtherUserTest() {
-        // Создаём нового пользователя
+        // Создаём новых пользователей
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
         JsonPath responseCreate = apiCoreRequests.makePostRequestToCreateNewUser(
